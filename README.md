@@ -4,6 +4,8 @@
 **Fix 0 MB error downloading** — Shadow Fight 2 acts no longer download on old clients; this fixes it.
 **Фикс ошибки «0 МБ»** — в старых версиях не качаются акты (главы); это лечит проблему.
 
+Video tutorial (Android, by JOHN BULLET): <https://www.youtube.com/watch?v=K22WRwT8VB0>
+
 Live mirror / живое зеркало: <https://sf2-acts.vercel.app/config_SF2.xml>
 
 ---
@@ -60,6 +62,13 @@ Live mirror / живое зеркало: <https://sf2-acts.vercel.app/config_SF2
 Для большинства версий нужен root: зайдите в
 `data/data/com.nekki.shadowfight` (точный путь зависит от версии), найдите там
 `internalSettings.xml` и замените адрес так же, как выше.
+
+### Видеоурок (Android) и полное описание
+
+- Полное описание этого способа: <https://github.com/creepyfaiz/shadow-fight-2-0mb-fix>
+- Видеоурок для **Android** от автора **JOHN BULLET**:
+  <https://www.youtube.com/watch?v=K22WRwT8VB0>
+- Способ для **iOS** — **позже**.
 
 ### Запасной адрес
 
@@ -147,6 +156,13 @@ of `config_SF2.xml`.
 Most versions need root: go to `data/data/com.nekki.shadowfight` (the exact path
 depends on the version), find `internalSettings.xml` there and replace the address
 the same way as above.
+
+### Video tutorial (Android) and full write-up
+
+- Full description of this method: <https://github.com/creepyfaiz/shadow-fight-2-0mb-fix>
+- **Android** video tutorial by the author **JOHN BULLET**:
+  <https://www.youtube.com/watch?v=K22WRwT8VB0>
+- The **iOS** method is **coming later**.
 
 ### Backup address
 
