@@ -63,6 +63,10 @@ Live mirror / живое зеркало: <https://sf2-acts.vercel.app/config_SF2
 `data/data/com.nekki.shadowfight` (точный путь зависит от версии), найдите там
 `internalSettings.xml` и замените адрес так же, как выше.
 
+**Способ без root (на Android):** создайте папку `assets` в корне памяти
+телефона и положите туда `internalSettings.xml` — возможно, игра подхватит файл
+оттуда. Это только в теории и работает не на всех версиях, зато **без root**.
+
 ### Видеоурок (Android) и полное описание
 
 - Полное описание этого способа: <https://github.com/creepyfaiz/shadow-fight-2-0mb-fix>
@@ -156,6 +160,11 @@ of `config_SF2.xml`.
 Most versions need root: go to `data/data/com.nekki.shadowfight` (the exact path
 depends on the version), find `internalSettings.xml` there and replace the address
 the same way as above.
+
+**No-root option (Android):** create an `assets` folder in the root of phone
+storage and put `internalSettings.xml` there — the game may pick the file up from
+there. This is theory only and doesn't work on every version, but it needs **no
+root**.
 
 ### Video tutorial (Android) and full write-up
 
