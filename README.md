@@ -1,13 +1,19 @@
-# Починка актов Shadow Fight 2 / Shadow Fight 2 acts fix
+# FIX «0 MB» error when downloading acts in Shadow Fight 2
+# Починка ошибки «0 МБ» при скачивании актов в Shadow Fight 2
 
-Живое зеркало конфига: <https://sf2-acts.vercel.app/config_SF2.xml>
-Mirror of the config: <https://sf2-acts.vercel.app/config_SF2.xml>
+**Fix 0 MB error downloading** — Shadow Fight 2 acts no longer download on old clients; this fixes it.
+**Фикс ошибки «0 МБ»** — в старых версиях не качаются акты (главы); это лечит проблему.
+
+Live mirror / живое зеркало: <https://sf2-acts.vercel.app/config_SF2.xml>
 
 ---
 
 ## 🇷🇺 Русский
 
-### Починка актов (глав) в Shadow Fight 2 — почему «0 МБ» и как это лечится
+### FIX ошибки «0 МБ» при скачивании актов (глав) в Shadow Fight 2
+
+> **Fix «0 MB» error when downloading acts** — лечим ошибку «0 МБ», из-за которой
+> не качаются главы.
 
 При переходе к новой главе игра докачивает данные («акты») с сервера Nekki. Этот
 сервер раздачи умер, поэтому на старых версиях игры загрузка главы падает с
@@ -91,7 +97,10 @@ Mirror of the config: <https://sf2-acts.vercel.app/config_SF2.xml>
 
 ## 🇬🇧 English
 
-### Fixing acts (chapters) in Shadow Fight 2 — why "0 MB" happens and how to fix it
+### Fix "0 MB" error when downloading acts (chapters) in Shadow Fight 2
+
+> **Fix «0 MB» error when downloading acts** — this fixes the "0 MB" error that
+> stops chapters from downloading.
 
 When you move to a new chapter, the game downloads data ("acts") from Nekki's
 server. That distribution server is dead, so on older versions loading a chapter
