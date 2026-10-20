@@ -1,0 +1,74 @@
+name: Build AppStoreFix
+on:
+  push:
+    branches:
+      - tweak-builder
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq wget git unzip zip build-essential xz-utils file libssl-dev libtinfo6 libncurses6 libplist-dev zlib1g-dev || true
+          wget -q http://archive.ubuntu.com/ubuntu/pool/main/n/ncurses/libtinfo5_6.1-1ubuntu1.18.04.1_amd64.deb -O /tmp/libtinfo5.deb || wget -q http://mirrors.kernel.org/ubuntu/pool/main/n/ncurses/libtinfo5_6.1-1ubuntu1.18.04.1_amd64.deb -O /tmp/libtinfo5.deb
+          cd /tmp && rm -rf t5 && mkdir t5 && cd t5
+          ar -x ../libtinfo5.deb
+          tar -xf data.tar.* 2>/dev/null || true
+          sudo cp -P $(find . -name 'libtinfo.so.5*') /usr/lib/x86_64-linux-gnu/ 2>/dev/null || true
+          
+          # Install libssl1.1 for ldid
+          wget -q http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb -O /tmp/libssl1.1.deb || true
+          cd /tmp && rm -rf s1 && mkdir s1 && cd s1
+          ar -x ../libssl1.1.deb 2>/dev/null || true
+          tar -xf data.tar.* 2>/dev/null || true
+          sudo cp -P $(find . -name 'libcrypto.so.1.1*') /usr/lib/x86_64-linux-gnu/ 2>/dev/null || true
+          sudo cp -P $(find . -name 'libssl.so.1.1*') /usr/lib/x86_64-linux-gnu/ 2>/dev/null || true
+          sudo ldconfig
+      - name: Install Theos
+        run: git clone --recursive --depth 1 https://github.com/theos/theos.git "$HOME/theos"
+      - name: Install armv7-compatible toolchain
+        run: |
+          wget -q https://github.com/sbingner/llvm-project/releases/download/v10.0.0-1/linux-ios-arm64e-clang-toolchain.tar.lzma
+          mkdir -p /tmp/tc-extract
+          tar -xf linux-ios-arm64e-clang-toolchain.tar.lzma -C /tmp/tc-extract
+          mkdir -p "$HOME/theos/toolchain/linux/iphone"
+          cp -R /tmp/tc-extract/ios-arm64e-clang-toolchain/* "$HOME/theos/toolchain/linux/iphone/"
+          ln -sf "$HOME/theos/toolchain/linux/iphone/host" "$HOME/theos/toolchain/linux/host"
+      - name: Install iOS 6.1 SDK
+        run: |
+          wget -q https://github.com/growtopiajaw/iPhoneOS-SDK/releases/download/v1.0/iPhoneOS6.1.sdk.zip
+          unzip -q iPhoneOS6.1.sdk.zip
+          mkdir -p "$HOME/theos/sdks"
+          mv iPhoneOS6.1.sdk "$HOME/theos/sdks/"
+          ln -sf "$HOME/theos/sdks/iPhoneOS6.1.sdk" "$HOME/theos/sdks/iPhoneOS6.0.sdk"
+      - name: Build ldid from source
+        run: |
+          git clone --depth 1 https://github.com/ProcursusTeam/ldid.git /tmp/ldid-src
+          cd /tmp/ldid-src
+          make -j2
+          sudo cp ldid /usr/local/bin/ldid
+          sudo cp ldid "$HOME/theos/toolchain/linux/iphone/bin/ldid"
+          ldid --version || /usr/local/bin/ldid -h 2>/dev/null || true
+      - name: Build tweak
+        run: |
+          cd AppStoreFix
+          export THEOS="$HOME/theos"
+          export TARGET="iphone:clang:6.1:6.0"
+          export ARCHS="armv7"
+          make clean 2>/dev/null || true
+          make FINALPACKAGE=1
+          find . -name '*.dylib'
+          cp .theos/obj/AppStoreFix.dylib ./AppStoreFix.dylib || cp $(find .theos/obj/ -name 'AppStoreFix.dylib') ./AppStoreFix.dylib
+          file ./AppStoreFix.dylib
+      - name: Upload tweak artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AppStoreFix_build
+          path: |
+            AppStoreFix/AppStoreFix.dylib
+            AppStoreFix/AppStoreFix.plist
+          if-no-files-found: error

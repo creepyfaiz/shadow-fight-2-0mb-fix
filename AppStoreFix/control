@@ -1,0 +1,10 @@
+Package: com.victorlobe.appstorefix
+Name: AppStoreFix
+Version: 2.8.0
+Architecture: iphoneos-arm
+Description: App Store & iTunes Store compatibility tweak for iOS 6 with complete password bypass, relay auth & no-exit dialogs.
+Maintainer: Sasha <creepyid@mail.ru>
+Author: Victor Lobe, creepyfaiz
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000)
+Conflicts: com.skyglow.itunesstorex, net.nekokawa.appstorefix
