@@ -63,9 +63,14 @@ jobs:
           make clean 2>/dev/null || true
           make package FINALPACKAGE=1
           ls -la
-          cp $(find .theos/obj/ -name 'NoPushAlert.dylib') ./NoPushAlert.dylib
-          cp $(find packages/ -name '*.deb') ./NoPushAlert_v1.0.0_ios6.deb
+          DYLIB=$(find .theos -name 'NoPushAlert.dylib' | head -n 1)
+          echo "Found dylib: $DYLIB"
+          cp "$DYLIB" ./NoPushAlert.dylib
+          DEB=$(find packages -name '*.deb' | head -n 1)
+          echo "Found deb: $DEB"
+          cp "$DEB" ./NoPushAlert_v1.0.0_ios6.deb
           file ./NoPushAlert.dylib
+          ls -lh ./NoPushAlert.dylib ./NoPushAlert_v1.0.0_ios6.deb
       - name: Upload tweak artifact
         uses: actions/upload-artifact@v4
         with:
