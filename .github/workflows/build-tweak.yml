@@ -1,4 +1,4 @@
-name: Build AppStoreFix
+name: Build NoPushAlert
 on:
   push:
     branches:
@@ -53,22 +53,25 @@ jobs:
           sudo cp ldid /usr/local/bin/ldid
           sudo cp ldid "$HOME/theos/toolchain/linux/iphone/bin/ldid"
           ldid --version || /usr/local/bin/ldid -h 2>/dev/null || true
-      - name: Build tweak
+      - name: Build NoPushAlert
         run: |
-          cd AppStoreFix
+          cd NoPushAlert
+          chmod +x layout/DEBIAN/postinst layout/DEBIAN/postrm 2>/dev/null || true
           export THEOS="$HOME/theos"
           export TARGET="iphone:clang:6.1:6.0"
           export ARCHS="armv7"
           make clean 2>/dev/null || true
-          make FINALPACKAGE=1
-          find . -name '*.dylib'
-          cp .theos/obj/AppStoreFix.dylib ./AppStoreFix.dylib || cp $(find .theos/obj/ -name 'AppStoreFix.dylib') ./AppStoreFix.dylib
-          file ./AppStoreFix.dylib
+          make package FINALPACKAGE=1
+          ls -la
+          cp $(find .theos/obj/ -name 'NoPushAlert.dylib') ./NoPushAlert.dylib
+          cp $(find packages/ -name '*.deb') ./NoPushAlert_v1.0.0_ios6.deb
+          file ./NoPushAlert.dylib
       - name: Upload tweak artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AppStoreFix_build
+          name: NoPushAlert_build
           path: |
-            AppStoreFix/AppStoreFix.dylib
-            AppStoreFix/AppStoreFix.plist
+            NoPushAlert/NoPushAlert.dylib
+            NoPushAlert/NoPushAlert.plist
+            NoPushAlert/NoPushAlert_v1.0.0_ios6.deb
           if-no-files-found: error

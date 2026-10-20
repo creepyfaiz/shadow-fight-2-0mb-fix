@@ -1,0 +1,9 @@
+Package: com.sashok.nopushalert
+Name: NoPushAlert
+Depends: mobilesubstrate
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: Полностью убирает системную ошибку 'Подключитесь к iTunes, чтобы использовать push-уведомления' на хактивированных устройствах iOS 6.
+Maintainer: Sasha (creepyfaiz)
+Author: Sasha (creepyfaiz)
+Section: Tweaks
