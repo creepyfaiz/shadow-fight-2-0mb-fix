@@ -68,9 +68,9 @@ jobs:
           cp "$DYLIB" ./NoPushAlert.dylib
           DEB=$(find packages -name '*.deb' | head -n 1)
           echo "Found deb: $DEB"
-          cp "$DEB" ./NoPushAlert_v1.0.0_ios6.deb
+          cp "$DEB" ./NoPushAlert_v1.0.1_ios6.deb
           file ./NoPushAlert.dylib
-          ls -lh ./NoPushAlert.dylib ./NoPushAlert_v1.0.0_ios6.deb
+          ls -lh ./NoPushAlert.dylib ./NoPushAlert_v1.0.1_ios6.deb
       - name: Upload tweak artifact
         uses: actions/upload-artifact@v4
         with:
@@ -78,5 +78,5 @@ jobs:
           path: |
             NoPushAlert/NoPushAlert.dylib
             NoPushAlert/NoPushAlert.plist
-            NoPushAlert/NoPushAlert_v1.0.0_ios6.deb
+            NoPushAlert/NoPushAlert_v1.0.1_ios6.deb
           if-no-files-found: error
